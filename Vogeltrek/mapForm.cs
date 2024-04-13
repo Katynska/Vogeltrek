@@ -14,18 +14,26 @@ using System.Windows.Forms;
 
 namespace Vogeltrek
 {
-    public partial class Form1 : Form
+    public partial class mapForm : Form
     {
         private GMapOverlay markersOverlay;
-        public Form1()
+        public mapForm()
         {
             InitializeComponent();
             markersOverlay = new GMapOverlay("markers");
+
+            DualTrackBar rangeTrackBar = new DualTrackBar(); // Заменили "RangeTrackBar" на "DualTrackBar"
+            rangeTrackBar.MinimumValue = 0;
+            rangeTrackBar.MaximumValue = 100;
+            rangeTrackBar.LowerValue = 20;
+            rangeTrackBar.UpperValue = 80;
+            rangeTrackBar.Dock = DockStyle.Top;
+            this.Controls.Add(rangeTrackBar);
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
         {
-            string coordinate = comboBox1.SelectedItem.ToString();
+            string coordinate = townComboBox.SelectedItem.ToString();
             string[] parts = coordinate.Split(',');
             double latitude = double.Parse(parts[0], CultureInfo.InvariantCulture);
             double longitude = double.Parse(parts[1], CultureInfo.InvariantCulture);
