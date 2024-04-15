@@ -21,14 +21,6 @@ namespace Vogeltrek
         {
             InitializeComponent();
             markersOverlay = new GMapOverlay("markers");
-
-            DualTrackBar rangeTrackBar = new DualTrackBar(); // Заменили "RangeTrackBar" на "DualTrackBar"
-            rangeTrackBar.MinimumValue = 0;
-            rangeTrackBar.MaximumValue = 100;
-            rangeTrackBar.LowerValue = 20;
-            rangeTrackBar.UpperValue = 80;
-            rangeTrackBar.Dock = DockStyle.Top;
-            this.Controls.Add(rangeTrackBar);
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)

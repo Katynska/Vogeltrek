@@ -156,3 +156,15 @@ public class DualTrackBar : Control
         _movingThumb = 0;
     }
 }
+
+
+
+/* код инициализации под InitializeComponent(); в mapForm
+DualTrackBar rangeTrackBar = new DualTrackBar();
+rangeTrackBar.MinimumValue = 0;
+rangeTrackBar.MaximumValue = 100;
+rangeTrackBar.LowerValue = 20;
+rangeTrackBar.UpperValue = 80;
+rangeTrackBar.Dock = DockStyle.Top;
+this.Controls.Add(rangeTrackBar);
+*/
