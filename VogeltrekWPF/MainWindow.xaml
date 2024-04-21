@@ -39,7 +39,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Карта-->
-        <gmaps:GMapControl x:Name="mapView" Loaded="mapView_Loaded" Grid.Column="1" Margin="0,127,10,10" Grid.RowSpan="2" />
+        <gmaps:GMapControl x:Name="mapSurvey" Loaded="mapSurvey_Loaded" Grid.Column="1" Margin="0,127,10,10" Grid.RowSpan="2" />
         
         <!--Выподающий список-->
         <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="68,31,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
