@@ -7,6 +7,43 @@
         mc:Ignorable="d"
         Title="QuestionnaireWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Опросник" FontSize="24" HorizontalAlignment="Center" Margin="0,20"/>
+
+        <!-- Контейнер опроса -->
+        <StackPanel Grid.Row="1" Margin="50,50,50,102">
+            <!-- Вопрос 1 -->
+            <StackPanel Name="question1" Visibility="Visible">
+                <TextBlock Text="Как вы реагируете на понедельник?" FontSize="18" Margin="0,20"/>
+                <RadioButton Content="Жизнь – это один сплошной приключенческий роман! Понедельник? Это просто новая страница для написания наших захватывающих историй!"/>
+                <RadioButton Content="После второй чашки кофе я воспринимаю его немного лучше"/>
+                <RadioButton Content="Понедельник? Пожалуй, лучше переждать его в кровати"/>
+                <RadioButton Content="Я принимаю его как вызов и готов к покорению новых вершин!"/>
+                <RadioButton Content="Я просто игнорирую его существование и пытаюсь продлить выходные"/>
+                <RadioButton Content="Понедельник! Это как готовиться к сражению с трёхголовым драконом, только без меча и щита, а с чашкой кофе и с печенькой!"/>
+                <Button Content="Ответить" Click="NextQuestion_Click" Tag="question1" Margin="0,20" Width="89" HorizontalAlignment="Left"/>
+
+            </StackPanel>
+
+            <!-- Вопрос 2 -->
+            <StackPanel Name="question2" Visibility="Collapsed">
+                <TextBlock Text="Сколько снегу нужно, чтобы зима была идеальной?" FontSize="18" Margin="0,20"/>
+                <RadioButton Content="Лучше без снега вообще! Давайте пляжи и пальмы!"/>
+                <RadioButton Content="Немного для красоты, и хватит! Пара хлопьев для настроения — и нормально"/>
+                <RadioButton Content="Если это не снежный буран, то чем больше, тем лучше! Я готов к любым снежным приключениям!"/>
+                <Button Content="Ответить" Click="NextQuestion_Click" Tag="question2" Margin="0,20"/>
+            </StackPanel>
+
+            <!-- Вопрос 3 -->
+            <!-- Добавьте нужные вопросы здесь с аналогичной структурой StackPanel -->
+
+            <!-- Конец опроса -->
+            <TextBlock Name="surveyEnd" Text="Спасибо за участие в опросе!" FontSize="18" Margin="0,20" Visibility="Collapsed"/>
+        </StackPanel>
     </Grid>
 </Window>

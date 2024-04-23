@@ -23,5 +23,11 @@ namespace VogeltrekWPF
         {
             InitializeComponent();
         }
+
+        // Обработчик события для кнопок "Ответить"
+        private void NextQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            // Ваш код для перехода к следующему вопросу здесь
+        }
     }
 }
