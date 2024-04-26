@@ -23,6 +23,7 @@ namespace VogeltrekWPF
     {
         public string Text { get; set; } // Текст ответа
         public bool IsSelected { get; set; } // // Флаг, указывающий, выбран ли этот ответ
+        public int Rating { get; set; } // Новое свойство для рейтинга
     }
 
     // Класс для представления вопроса
@@ -37,7 +38,7 @@ namespace VogeltrekWPF
     {
         private List<Question> questions = new List<Question>(); // Список вопросов
         private int currentQuestionIndex = 0;  // Индекс текущего вопроса
-        private List<Answer> selectedAnswers = new List<Answer>(); // Массив для хранения выбранных ответов
+        private List<int> selectedAnswers = new List<int>(); // Массив для хранения выбранных ответов
 
         public QuestionnaireWindow()
         {
@@ -54,12 +55,12 @@ namespace VogeltrekWPF
                 Text = "Как вы реагируете на понедельник?",
                 Answers = new List<Answer>
                 {
-                    new Answer { Text = "Жизнь – это один сплошной приключенческий роман! Понедельник? Это просто новая страница для написания наших захватывающих историй!" },
-                    new Answer { Text = "После второй чашки кофе я воспринимаю его немного лучше" },
-                    new Answer { Text = "Понедельник? Пожалуй, лучше переждать его в кровати" },
-                    new Answer { Text = "Я принимаю его как вызов и готов к покорению новых вершин!" },
-                    new Answer { Text = "Я просто игнорирую его существование и пытаюсь продлить выходные"},
-                    new Answer { Text = "Понедельник! Это как готовиться к сражению с трёхголовым драконом, только без меча и щита, а с чашкой кофе и с печенькой!" }
+                    new Answer { Text = "Жизнь – это один сплошной приключенческий роман! Понедельник? Это просто новая страница для написания наших захватывающих историй!", Rating = 1},
+                    new Answer { Text = "После второй чашки кофе я воспринимаю его немного лучше", Rating = 2 },
+                    new Answer { Text = "Понедельник? Пожалуй, лучше переждать его в кровати", Rating = 2 },
+                    new Answer { Text = "Я принимаю его как вызов и готов к покорению новых вершин!", Rating = 3 },
+                    new Answer { Text = "Я просто игнорирую его существование и пытаюсь продлить выходные", Rating = 3},
+                    new Answer { Text = "Понедельник! Это как готовиться к сражению с трёхголовым драконом, только без меча и щита, а с чашкой кофе и с печенькой!", Rating = 1 }
                 }
             });
             questions.Add(new Question
@@ -67,9 +68,9 @@ namespace VogeltrekWPF
                 Text = "Сколько снегу нужно, чтобы зима была идеальной?",
                 Answers = new List<Answer>
                 {
-                    new Answer { Text = "Лучше без снега вообще! Давайте пляжи и пальмы!" },
-                    new Answer { Text = "Немного для красоты, и хватит! Пара хлопьев для настроения — и нормально"},
-                    new Answer { Text = "Если это не снежный буран, то чем больше, тем лучше! Я готов к любым снежным приключениям!"}
+                    new Answer { Text = "Лучше без снега вообще! Давайте пляжи и пальмы!", Rating = 1 },
+                    new Answer { Text = "Немного для красоты, и хватит! Пара хлопьев для настроения — и нормально", Rating = 2},
+                    new Answer { Text = "Если это не снежный буран, то чем больше, тем лучше! Я готов к любым снежным приключениям!", Rating = 3}
                 }
             });
             // Добавьте другие вопросы....
@@ -113,35 +114,25 @@ namespace VogeltrekWPF
         // Метод для сохранения выбранного ответа
         private void SaveSelectedAnswer()
         {
-            var radioButtonList = mainPanel.Children
-                .OfType<StackPanel>()
-                .FirstOrDefault(stackPanel => stackPanel.Tag?.ToString() == currentQuestionIndex.ToString())
-                ?.Children
-                .OfType<RadioButton>();
-
-            if (radioButtonList != null)
+            // Находим текущий вопрос
+            var currentQuestion = questions.ElementAtOrDefault(currentQuestionIndex);
+            if (currentQuestion != null)
             {
-                foreach (var radioButton in radioButtonList)
+                // Ищем выбранный ответ
+                var selectedAnswer = currentQuestion.Answers.FirstOrDefault(a => a.IsSelected);
+                if (selectedAnswer != null)
                 {
-                    if (radioButton.IsChecked == true)
-                    {
-                        var selectedAnswer = new Answer
-                        {
-                            Text = radioButton.Content.ToString(),
-                            IsSelected = true
-                        };
-                        selectedAnswers.Add(selectedAnswer);
-                        return;
-                    }
+                    selectedAnswers.Add(selectedAnswer.Rating);
                 }
             }
         }
+
 
         // Метод для перехода к следующему вопросу и обновления интерфейса
         private void MoveToNextQuestionAndUpdate()
         {
             SaveSelectedAnswer(); // Сохраняем выбранный ответ
-
+            Console.WriteLine("Selected answers: " + string.Join(", ", selectedAnswers));
             currentQuestionIndex++; // Переходим к следующему вопросу
 
             // Проверяем, не дошли ли мы до конца опроса
@@ -155,6 +146,7 @@ namespace VogeltrekWPF
                 Close(); // Пример: закрываем окно
             }
         }
+
 
         // Метод для обновления видимости текущего вопроса
         private void UpdateCurrentQuestionVisibility()
@@ -175,20 +167,12 @@ namespace VogeltrekWPF
         // Метод для проверки, выбран ли ответ на текущий вопрос
         private bool IsAnswerSelectedForCurrentQuestion()
         {
-            var currentQuestionPanel = mainPanel.Children.OfType<StackPanel>().FirstOrDefault(panel => panel.IsVisible);
-            if (currentQuestionPanel == null)
+            var currentQuestion = questions.ElementAtOrDefault(currentQuestionIndex);
+            if (currentQuestion != null)
             {
-                return false;
+                return currentQuestion.Answers.Any(a => a.IsSelected);
             }
-
-            var itemsControl = currentQuestionPanel.Children.OfType<ItemsControl>().FirstOrDefault();
-            if (itemsControl == null)
-            {
-                return false;
-            }
-
-            var radioButtons = FindVisualChildren<RadioButton>(itemsControl);
-            return radioButtons.Any(radioButton => radioButton.IsChecked.HasValue && radioButton.IsChecked.Value);
+            return false;
         }
 
         // Рекурсивный метод для поиска всех визуальных дочерних элементов заданного типа T в визуальном дереве элемента depObj
