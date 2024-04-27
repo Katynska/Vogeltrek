@@ -213,6 +213,7 @@ namespace VogeltrekWPF
         {
             if (currentQuestionIndex > 0)
             {
+                selectedAnswers.RemoveAt(selectedAnswers.Count - 1); // Удаляем последний выбранный ответ из списка
                 currentQuestionIndex--; // Переходим к предыдущему вопросу
                 UpdateCurrentQuestionVisibility(); // Обновляем интерфейс для предыдущего вопроса
             }
