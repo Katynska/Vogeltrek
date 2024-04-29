@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Resources;
+
 
 namespace VogeltrekWPF
 {
@@ -26,12 +30,14 @@ namespace VogeltrekWPF
         public int Rating { get; set; } // Новое свойство для рейтинга
     }
 
+
     // Класс для представления вопроса
     public class Question
     {
         public string Text { get; set; } // Текст вопроса
         public List<Answer> Answers { get; set; } // Список возможных ответов на вопрос
     }
+
 
     // Определение класса окна опроса
     public partial class QuestionnaireWindow : Window
@@ -47,37 +53,35 @@ namespace VogeltrekWPF
             DataContext = this;
         }
 
+
         // Инициализация списка вопросов
         private void InitializeQuestions()
         {
-            questions.Add(new Question
+            // Получение пути к JSON файлу
+            string jsonFilePath = "/Resources/Questions.json";
+
+            // Получение потока ресурса
+            Uri UriQuestions = new Uri(jsonFilePath, UriKind.Relative);
+            StreamResourceInfo resourceInfo = Application.GetResourceStream(UriQuestions);
+
+            if (resourceInfo == null)
             {
-                Text = "Как вы реагируете на понедельник?",
-                Answers = new List<Answer>
-                {
-                    new Answer { Text = "Жизнь – это один сплошной приключенческий роман! Понедельник? Это просто новая страница для написания наших захватывающих историй!", Rating = 1},
-                    new Answer { Text = "После второй чашки кофе я воспринимаю его немного лучше", Rating = 2 },
-                    new Answer { Text = "Понедельник? Пожалуй, лучше переждать его в кровати", Rating = 2 },
-                    new Answer { Text = "Я принимаю его как вызов и готов к покорению новых вершин!", Rating = 3 },
-                    new Answer { Text = "Я просто игнорирую его существование и пытаюсь продлить выходные", Rating = 3},
-                    new Answer { Text = "Понедельник! Это как готовиться к сражению с трёхголовым драконом, только без меча и щита, а с чашкой кофе и с печенькой!", Rating = 1 }
-                }
-            });
-            questions.Add(new Question
+                MessageBox.Show("Не удалось найти файл questions.json в папке Resources.");
+                return;
+            }
+
+            // Чтение JSON из потока
+            using (StreamReader reader = new StreamReader(resourceInfo.Stream))
             {
-                Text = "Сколько снегу нужно, чтобы зима была идеальной?",
-                Answers = new List<Answer>
-                {
-                    new Answer { Text = "Лучше без снега вообще! Давайте пляжи и пальмы!", Rating = 1 },
-                    new Answer { Text = "Немного для красоты, и хватит! Пара хлопьев для настроения — и нормально", Rating = 2},
-                    new Answer { Text = "Если это не снежный буран, то чем больше, тем лучше! Я готов к любым снежным приключениям!", Rating = 3}
-                }
-            });
-            // Добавьте другие вопросы....
+                string json = reader.ReadToEnd();
+                // Десериализация JSON в список вопросов
+                questions = JsonConvert.DeserializeObject<List<Question>>(json);
+            }
 
             // Создаем StackPanel'ы для каждого вопроса и добавляем их в mainPanel
             InitializeQuestionsUI();
         }
+
 
         // Инициализация интерфейса для каждого вопроса
         private void InitializeQuestionsUI()
@@ -111,6 +115,7 @@ namespace VogeltrekWPF
             }
         }
 
+
         // Метод для сохранения выбранного ответа
         private void SaveSelectedAnswer()
         {
@@ -132,9 +137,9 @@ namespace VogeltrekWPF
         private void MoveToNextQuestionAndUpdate()
         {
             SaveSelectedAnswer(); // Сохраняем выбранный ответ
-            Console.WriteLine("Selected answers: " + string.Join(", ", selectedAnswers));
+            
             currentQuestionIndex++; // Переходим к следующему вопросу
-
+            
             // Проверяем, не дошли ли мы до конца опроса
             if (currentQuestionIndex < questions.Count)
             {
@@ -142,6 +147,7 @@ namespace VogeltrekWPF
             }
             else
             {
+                Console.WriteLine("Selected answers: " + string.Join(", ", selectedAnswers));
                 // Если дошли до конца, можно что-то сделать, например, закрыть окно или показать сообщение об окончании опроса
                 Close(); // Пример: закрываем окно
             }
@@ -164,6 +170,7 @@ namespace VogeltrekWPF
             }
         }
 
+
         // Метод для проверки, выбран ли ответ на текущий вопрос
         private bool IsAnswerSelectedForCurrentQuestion()
         {
@@ -174,6 +181,7 @@ namespace VogeltrekWPF
             }
             return false;
         }
+
 
         // Рекурсивный метод для поиска всех визуальных дочерних элементов заданного типа T в визуальном дереве элемента depObj
         private static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
@@ -196,6 +204,7 @@ namespace VogeltrekWPF
             }
         }
 
+
         // Обработчик события для кнопки "Ответить"
         private void AcceptAnswer_Click(object sender, RoutedEventArgs e)
         {
@@ -207,6 +216,7 @@ namespace VogeltrekWPF
 
             MoveToNextQuestionAndUpdate();
         }
+
 
         // Обработчик события для кнопки "Назад"
         private void RollbackAnswer_Click(object sender, RoutedEventArgs e)
