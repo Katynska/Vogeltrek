@@ -137,19 +137,27 @@ namespace VogeltrekWPF
         private void MoveToNextQuestionAndUpdate()
         {
             SaveSelectedAnswer(); // Сохраняем выбранный ответ
-            
+
             currentQuestionIndex++; // Переходим к следующему вопросу
-            
+
             // Проверяем, не дошли ли мы до конца опроса
             if (currentQuestionIndex < questions.Count)
             {
                 UpdateCurrentQuestionVisibility(); // Обновляем интерфейс для нового вопроса
             }
             else
-            {
+            {   //Вывод списка ответов в консоль для проверки
                 Console.WriteLine("Selected answers: " + string.Join(", ", selectedAnswers));
-                // Если дошли до конца, можно что-то сделать, например, закрыть окно или показать сообщение об окончании опроса
-                Close(); // Пример: закрываем окно
+
+                // Скрываем все вопросы и ответы вместе с кнопками "Ответить" и "Назад"
+                mainPanel.Visibility = Visibility.Collapsed;
+                AcceptAnswerButton.Visibility = Visibility.Collapsed;
+                RollbackAnswerButton.Visibility = Visibility.Collapsed;
+
+                // Опрос завершен
+                surveyEnd.Visibility = Visibility.Visible; // Отображаем надпись "Опрос завершен!"
+                // Отображение кнопки "Перейти к результатам"
+                ShowResultsButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -231,6 +239,18 @@ namespace VogeltrekWPF
             {
                 MessageBox.Show("Это первый вопрос.");
             }
+        }
+
+
+        // Обработчик события для кнопки "Перейти к результатам"
+        private void ShowResults_Click(object sender, RoutedEventArgs e)
+        {
+            // Открываем окно с результатами
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+
+            // Закрываем текущее окно
+            Close();
         }
     }
 }
