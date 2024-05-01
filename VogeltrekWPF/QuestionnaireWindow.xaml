@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VogeltrekWPF"
         mc:Ignorable="d"
-        Title="QuestionnaireWindow" Height="450" Width="800">
+        Title="Окно опроса" Height="450" Width="800">
     <Window.Resources>
         <DataTemplate x:Key="RadioButtonTemplate">
             <RadioButton Content="{Binding Text}" GroupName="Answers" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
@@ -19,17 +19,16 @@
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
-        <TextBlock Grid.Row="0" Text="Опросник" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,20" Width="110"/>
+        <TextBlock x:Name="TextBlockTitle" Grid.Row="0" Text="Опросник" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,20" Width="287" TextAlignment="Center"/>
 
         <!-- Контейнер опроса -->
         <StackPanel Name="mainPanel" Grid.Row="1" Margin="50,50,50,10"/>
-        
-        <Button x:Name="AcceptAnswerButton" Content="Ответить" Click="AcceptAnswer_Click" Margin="166,10,0,50" Width="89" HorizontalAlignment="Left" Grid.Row="2"/>
-        <Button x:Name="RollbackAnswerButton" Content="Назад" Click="RollbackAnswer_Click" Margin="56,10,0,50" Width="89" HorizontalAlignment="Left" Grid.Row="2"/>
-        
+
+        <Button x:Name="AcceptAnswerButton" Content="Ответить" Click="AcceptAnswer_Click" Margin="168,10,0,0" Width="90" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="33"/>
+        <Button x:Name="RollbackAnswerButton" Content="Назад" Click="RollbackAnswer_Click" Margin="56,10,0,0" Width="89" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="33"/>
+
         <!-- Конец опроса -->
-        <TextBlock Name="surveyEnd" Text="Опрос завершен!" FontSize="18" Margin="0,20" Visibility="Collapsed" Grid.Row="1" HorizontalAlignment="Center"/>
-        <Button x:Name="ShowResultsButton" Content="Перейти к результатам" Click="ShowResults_Click" Margin="0,10" Visibility="Collapsed" Width="150" HorizontalAlignment="Center" Grid.Row="1"/>
-    
+        <Button x:Name="ShowResultsButton" Content="Перейти к результатам" Click="ShowResults_Click" Visibility="Collapsed" Width="158" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="38"/>
+
     </Grid>
 </Window>

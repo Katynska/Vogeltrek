@@ -154,8 +154,8 @@ namespace VogeltrekWPF
                 AcceptAnswerButton.Visibility = Visibility.Collapsed;
                 RollbackAnswerButton.Visibility = Visibility.Collapsed;
 
-                // Опрос завершен
-                surveyEnd.Visibility = Visibility.Visible; // Отображаем надпись "Опрос завершен!"
+                // Изменяем текст заголовка на "Опрос завершен!"
+                TextBlockTitle.Text = "Опрос завершен!";
                 // Отображение кнопки "Перейти к результатам"
                 ShowResultsButton.Visibility = Visibility.Visible;
             }
