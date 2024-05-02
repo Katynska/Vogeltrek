@@ -55,6 +55,7 @@
         <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="328,31,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
         <xctk:RangeSlider Grid.Column="1" HorizontalAlignment="Left" Margin="262,57,0,0" VerticalAlignment="Top" Width="166" Height="20" Maximum="1000" HigherValue="500" LowerValue="300" 
                           Style="{StaticResource RangeSliderStyle}"/>
+        <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="214,83,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
 
     </Grid>

@@ -45,7 +45,7 @@ namespace VogeltrekWPF
         private List<Question> questions = new List<Question>(); // Список вопросов
         private int currentQuestionIndex = 0;  // Индекс текущего вопроса
         private List<int> selectedAnswers = new List<int>(); // Массив для хранения выбранных ответов
-
+        public MainWindow ParentWindow { get; set; }
         public QuestionnaireWindow()
         {
             InitializeComponent();
@@ -147,7 +147,7 @@ namespace VogeltrekWPF
             }
             else
             {   //Вывод списка ответов в консоль для проверки
-                Console.WriteLine("Selected answers: " + string.Join(", ", selectedAnswers));
+                Console.WriteLine("Вопросы в окне QuestionnaireWindow: " + string.Join(", ", selectedAnswers));
 
                 // Скрываем все вопросы и ответы вместе с кнопками "Ответить" и "Назад"
                 mainPanel.Visibility = Visibility.Collapsed;
@@ -245,11 +245,13 @@ namespace VogeltrekWPF
         // Обработчик события для кнопки "Перейти к результатам"
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
-            // Открываем окно с результатами
-            MainWindow mainWindow = new MainWindow();
+            // Создаем новое окно с главным окном, передавая выбранные ответы в конструктор
+            MainWindow mainWindow = new MainWindow(selectedAnswers);
+
+            // Показываем новое окно с главным окном
             mainWindow.Show();
 
-            // Закрываем текущее окно
+            // Закрываем текущее окно опроса
             Close();
         }
     }

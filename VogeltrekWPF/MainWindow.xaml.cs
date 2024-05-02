@@ -20,10 +20,26 @@ namespace VogeltrekWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Конструктор первого запуска без параметров
         public MainWindow()
         {
             InitializeComponent();
         }
+
+
+        //Конструктор с полученными ответами из окна Опроса
+        public List<int> SelectedAnswers { get; private set; }
+        public MainWindow(List<int> selectedAnswers)
+        {
+            InitializeComponent();
+
+            // Инициализация переменной выбранных ответов
+            SelectedAnswers = selectedAnswers;
+            // Вывод списка ответов в консоль для проверки
+            Console.WriteLine("Вопросы в окне MainWindow: " + string.Join(", ", SelectedAnswers));
+        }
+
+
         private void mapSurvey_Loaded(object sender, RoutedEventArgs e)
         {
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
@@ -39,6 +55,16 @@ namespace VogeltrekWPF
             mapSurvey.CanDragMap = true;
             // lets the user drag the map with the left mouse button
             mapSurvey.DragButton = MouseButton.Left;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Открываем окно с результатами
+            QuestionnaireWindow mainWindow = new QuestionnaireWindow();
+
+            mainWindow.Show();
+            // Закрываем текущее окно
+            Close();
         }
     }
 }
