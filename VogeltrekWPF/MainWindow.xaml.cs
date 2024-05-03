@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VogeltrekWPF.Scripts;
 
 namespace VogeltrekWPF
 {
@@ -42,19 +43,7 @@ namespace VogeltrekWPF
 
         private void mapSurvey_Loaded(object sender, RoutedEventArgs e)
         {
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
-            // choose your provider here
-            mapSurvey.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
-            mapSurvey.MinZoom = 2;
-            mapSurvey.MaxZoom = 17;
-            // whole world zoom
-            mapSurvey.Zoom = 2;
-            // lets the map use the mousewheel to zoom
-            mapSurvey.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            // lets the user drag the map
-            mapSurvey.CanDragMap = true;
-            // lets the user drag the map with the left mouse button
-            mapSurvey.DragButton = MouseButton.Left;
+            GmapSheet.ConfigureMap(mapSurvey);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

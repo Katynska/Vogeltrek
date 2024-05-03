@@ -58,14 +58,14 @@
         <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="214,83,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         
         <Menu Height="20" VerticalAlignment="Top" Grid.ColumnSpan="3" Background="#B2F8F2F5">
-            <MenuItem Header="File">
+            <MenuItem Header="Файл">
                 <MenuItem Header="New Project" ></MenuItem>
                 <MenuItem Header="Open Project" >
                     <MenuItem Header="WinForms"></MenuItem>
                     <MenuItem Header="WPF" ></MenuItem>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Exit" ></MenuItem>
+                <MenuItem Header="Выход" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
