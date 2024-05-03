@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
-        xmlns:local="clr-namespace:VogeltrekWPF"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="VogeltrekWPF.MainWindow"
+        xmlns:local="clr-namespace:VogeltrekWPF.Scripts"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="VogeltrekWPF.MainWindow" 
         mc:Ignorable="d"
         Title="Главное окно" Height="714" Width="856">
 
@@ -44,28 +44,32 @@
         <!--Выподающий список-->
         <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="68,31,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
         <ComboBox HorizontalAlignment="Left" Margin="27,57,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="21"/>
+        
         <!--Рейтинг городов ввиде списк-->
         <Label Grid.Column="2" Content="Label" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
         <ListBox Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.RowSpan="2" Margin="10,83,10,0"/>
+        
         <!--Ползунки пользовательских настроек-->
         <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="531,31,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
         <xctk:RangeSlider Grid.Column="1" HorizontalAlignment="Left" Margin="466,57,0,0" VerticalAlignment="Top" Width="166" Height="20" Maximum="1000" HigherValue="500" LowerValue="300" 
                           Style="{StaticResource RangeSliderStyle}"/>
+        
         <!--Инициализация стилей ползунка-->
         <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="328,31,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
         <xctk:RangeSlider Grid.Column="1" HorizontalAlignment="Left" Margin="262,57,0,0" VerticalAlignment="Top" Width="166" Height="20" Maximum="1000" HigherValue="500" LowerValue="300" 
                           Style="{StaticResource RangeSliderStyle}"/>
         <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="214,83,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        
+
+        <!--Меню-->
         <Menu Height="20" VerticalAlignment="Top" Grid.ColumnSpan="3" Background="#B2F8F2F5">
             <MenuItem Header="Файл">
-                <MenuItem Header="New Project" ></MenuItem>
-                <MenuItem Header="Open Project" >
-                    <MenuItem Header="WinForms"></MenuItem>
-                    <MenuItem Header="WPF" ></MenuItem>
+                <MenuItem Header="New Project" Command="{x:Static local:MenuCommands.NewProject}" />
+                <MenuItem Header="Open Project" Command="{x:Static local:MenuCommands.OpenProject}">
+                    <MenuItem Header="WinForms" Command="{x:Static local:MenuCommands.OpenProject}" />
+                    <MenuItem Header="WPF" Command="{x:Static local:MenuCommands.OpenProject}" />
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Выход" ></MenuItem>
+                <MenuItem Header="Выход" InputGestureText="Alt+F4" Command="{x:Static local:MenuCommands.Exit}" />
             </MenuItem>
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>

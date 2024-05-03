@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VogeltrekWPF.Scripts;
 
+
 namespace VogeltrekWPF
 {
     /// <summary>
@@ -25,6 +26,10 @@ namespace VogeltrekWPF
         public MainWindow()
         {
             InitializeComponent();
+            
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.NewProject, Scripts.MenuCommands.NewProject_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.OpenProject, Scripts.MenuCommands.OpenProject_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.Exit, Scripts.MenuCommands.Exit_Executed));
         }
 
 

@@ -108,6 +108,7 @@
       <DependentUpon>QuestionnaireWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Scripts\GmapSheet.cs" />
+    <Compile Include="Scripts\MenuCommands.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
