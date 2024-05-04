@@ -22,6 +22,7 @@ namespace VogeltrekWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<int> SelectedAnswers { get; set; }
         //Конструктор первого запуска без параметров
         public MainWindow()
         {
@@ -33,18 +34,6 @@ namespace VogeltrekWPF
         }
 
 
-        //Конструктор с полученными ответами из окна Опроса
-        public List<int> SelectedAnswers { get; private set; }
-        public MainWindow(List<int> selectedAnswers)
-        {
-            InitializeComponent();
-
-            // Инициализация переменной выбранных ответов
-            SelectedAnswers = selectedAnswers;
-            // Вывод списка ответов в консоль для проверки
-            Console.WriteLine("Вопросы в окне MainWindow: " + string.Join(", ", SelectedAnswers));
-        }
-
 
         private void mapSurvey_Loaded(object sender, RoutedEventArgs e)
         {
@@ -53,12 +42,21 @@ namespace VogeltrekWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Открываем окно с результатами
-            QuestionnaireWindow mainWindow = new QuestionnaireWindow();
+            // Создаем новое окно опроса
+            QuestionnaireWindow questionnaireWindow = new QuestionnaireWindow();
 
-            mainWindow.Show();
-            // Закрываем текущее окно
-            Close();
+            // Устанавливаем ссылку на главное окно в окне опроса
+            questionnaireWindow.ParentWindow = this;
+
+            // Отображаем окно опроса
+            questionnaireWindow.Show();
+
+            // Ожидаем закрытия окна опроса
+            questionnaireWindow.Closed += (s, args) =>
+            {
+                // Выводим полученный список в консоль в одной строке
+                Console.WriteLine("Список выбранных ответов в MainWindow: " + string.Join(", ", this.SelectedAnswers));
+            };
         }
     }
 }
