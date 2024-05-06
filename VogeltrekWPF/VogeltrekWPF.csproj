@@ -153,9 +153,7 @@
     <Content Include="Resources\DBRussianCities.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Questions.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Questions.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
