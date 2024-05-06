@@ -27,18 +27,14 @@ namespace VogeltrekWPF
         public MainWindow()
         {
             InitializeComponent();
-            
+            GmapSheet.ConfigureMap(mapSurvey);
+            DataBaseSQLite.LoadDataToListBox(listRatingCities);
+
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.NewProject, Scripts.MenuCommands.NewProject_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.OpenProject, Scripts.MenuCommands.OpenProject_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.Exit, Scripts.MenuCommands.Exit_Executed));
         }
 
-
-
-        private void mapSurvey_Loaded(object sender, RoutedEventArgs e)
-        {
-            GmapSheet.ConfigureMap(mapSurvey);
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -107,6 +107,7 @@
     <Compile Include="QuestionnaireWindow.xaml.cs">
       <DependentUpon>QuestionnaireWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\DataBaseSQLite.cs" />
     <Compile Include="Scripts\GmapSheet.cs" />
     <Compile Include="Scripts\MenuCommands.cs" />
     <Page Include="MainWindow.xaml">
@@ -149,9 +150,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\Questions.json">
+    <Content Include="Resources\DBRussianCities.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Resources\Questions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
