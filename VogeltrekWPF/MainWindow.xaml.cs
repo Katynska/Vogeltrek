@@ -22,7 +22,7 @@ namespace VogeltrekWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<int> SelectedAnswers { get; set; }
+        public List<int> selectedAnswersFull { get; set; }
         //Конструктор первого запуска без параметров
         public MainWindow()
         {
@@ -51,7 +51,7 @@ namespace VogeltrekWPF
             questionnaireWindow.Closed += (s, args) =>
             {
                 // Выводим полученный список в консоль в одной строке
-                Console.WriteLine("Список выбранных ответов в MainWindow: " + string.Join(", ", this.SelectedAnswers));
+                Console.WriteLine("Список выбранных ответов в MainWindow: " + string.Join(", ", this.selectedAnswersFull));
             };
         }
 

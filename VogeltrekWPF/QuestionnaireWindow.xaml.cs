@@ -180,7 +180,7 @@ namespace VogeltrekWPF
 
 
         // Метод для проверки, выбран ли ответ на текущий вопрос
-        private bool IsAnswerSelectedForCurrentQuestion()
+        private bool IsAnswerSelectedCurrentQuestion()
         {
             var currentQuestion = questions.ElementAtOrDefault(currentQuestionIndex);
             if (currentQuestion != null)
@@ -216,7 +216,7 @@ namespace VogeltrekWPF
         // Обработчик события для кнопки "Ответить"
         private void AcceptAnswer_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsAnswerSelectedForCurrentQuestion())
+            if (!IsAnswerSelectedCurrentQuestion())
             {
                 MessageBox.Show("Пожалуйста, выберите ответ.");
                 return;
@@ -248,7 +248,7 @@ namespace VogeltrekWPF
             if (ParentWindow != null)
             {
                 // Передаем список выбранных ответов в уже открытое главное окно
-                ParentWindow.SelectedAnswers = selectedAnswers;
+                ParentWindow.selectedAnswersFull = selectedAnswers;
                 // Закрываем окно опроса
                 Close();
             }
