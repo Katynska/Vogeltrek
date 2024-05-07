@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace VogeltrekWPF.Scripts
 {
     internal class DataBaseSQLite
     {
-            public static void LoadDataToListBox(ListBox listBox)
+            public static void LoadDataFromDB(ListBox listBox, ComboBox comboBox)
             {
             // Подключение к базе данных SQLite
             string connectionString = $"Data Source=|DataDirectory|\\Resources\\DBRussianCities.db;Version=3;";
@@ -36,7 +37,9 @@ namespace VogeltrekWPF.Scripts
 
                             // Привязка списка к ListBox
                             listBox.ItemsSource = cityNames;
-                        }
+                            // Привязка списка к ComboBox
+                            comboBox.ItemsSource = cityNames;
+                    }
                     }
 
                     connection.Close();

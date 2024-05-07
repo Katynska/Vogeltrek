@@ -28,7 +28,7 @@ namespace VogeltrekWPF
         {
             InitializeComponent();
             GmapSheet.ConfigureMap(mapSurvey);
-            DataBaseSQLite.LoadDataToListBox(listRatingCities);
+            DataBaseSQLite.LoadDataFromDB(listRatingCities, ComboBoxCityResidence);
 
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.NewProject, Scripts.MenuCommands.NewProject_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.OpenProject, Scripts.MenuCommands.OpenProject_Executed));
@@ -53,6 +53,17 @@ namespace VogeltrekWPF
                 // Выводим полученный список в консоль в одной строке
                 Console.WriteLine("Список выбранных ответов в MainWindow: " + string.Join(", ", this.SelectedAnswers));
             };
+        }
+
+
+        private void ComboBoxCityResidence_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Вывод выбранного города в консоль
+            string selectedCity = (sender as ComboBox).SelectedItem as string;
+            if (!string.IsNullOrEmpty(selectedCity))
+            {
+                Console.WriteLine("Выбранный город: " + selectedCity);
+            }
         }
     }
 }
