@@ -1,5 +1,8 @@
-﻿using System;
+﻿using GMap.NET.WindowsPresentation;
+using GMap.NET;
+using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,8 @@ namespace VogeltrekWPF
     public partial class MainWindow : Window
     {
         public List<int> selectedAnswersFull { get; set; }
+        private GMapMarker previousMarker = null;
+
         //Конструктор первого запуска без параметров
         public MainWindow()
         {
@@ -36,6 +41,7 @@ namespace VogeltrekWPF
         }
 
 
+        //Тестовая кнопка перехода к опросу
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Создаем новое окно опроса
@@ -56,6 +62,7 @@ namespace VogeltrekWPF
         }
 
 
+        //Загрузка городов в выподающий список
         private void ComboBoxCityResidence_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Вывод выбранного города в консоль
@@ -63,6 +70,23 @@ namespace VogeltrekWPF
             if (!string.IsNullOrEmpty(selectedCity))
             {
                 Console.WriteLine("Выбранный город: " + selectedCity);
+            }
+        }
+
+
+        //Отображение метки при выборе города из списка рейтинга
+        private void listRatingCities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Получаем выбранный город из списка
+            string selectedCity = listRatingCities.SelectedItem as string;
+
+            // Получаем координаты выбранного города из базы данных
+            if (!string.IsNullOrEmpty(selectedCity))
+            {
+                (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(selectedCity);
+
+                // Добавляем метку на карту Gmap.NET
+                GmapSheet.AddMarker(mapSurvey, latitude, longitude);
             }
         }
     }
