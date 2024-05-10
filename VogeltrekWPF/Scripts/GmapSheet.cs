@@ -15,8 +15,6 @@ namespace VogeltrekWPF.Scripts
 {
     internal class GmapSheet
     {
-        private static GMapMarker previousMarker = null;
-
         public static void ConfigureMap(GMapControl map)
         {
             GMaps.Instance.Mode = AccessMode.ServerAndCache;
@@ -35,19 +33,27 @@ namespace VogeltrekWPF.Scripts
         }
 
 
-
-        public static void AddMarker(GMapControl map, double latitude, double longitude)
+        public static GMapMarker AddMarker(GMapControl map, double latitude, double longitude, bool isPrimaryCity = false)
         {
-            // Удаление предыдущей метки, если она существует
-            if (previousMarker != null)
-            {
-                map.Markers.Remove(previousMarker);
-            }
-
-            // Добавляем метку на карту Gmap.NET
+            // Создаем метку на карту Gmap.NET
+            GMapMarker marker = null;
             if (latitude != 0.0 && longitude != 0.0)
             {
-                GMapMarker marker = new GMapMarker(new PointLatLng(latitude, longitude));
+                marker = new GMapMarker(new PointLatLng(latitude, longitude));
+
+                // Выбираем форму и цвет метки в зависимости от типа города
+                if (isPrimaryCity)
+                {
+                    marker.Shape = new Ellipse
+                    {
+                        Width = 12,
+                        Height = 12,
+                        Stroke = Brushes.Blue,
+                        Fill = Brushes.Blue,
+                        Opacity = 0.6
+                    };
+                }
+                else
                 {
                     marker.Shape = new Ellipse
                     {
@@ -58,11 +64,12 @@ namespace VogeltrekWPF.Scripts
                         Opacity = 0.6
                     };
                 }
-                map.Markers.Add(marker);
 
-                // Сохраняем ссылку на текущую метку как предыдущую
-                previousMarker = marker;
+                // Добавляем метку на карту
+                map.Markers.Add(marker);
             }
+
+            return marker;
         }
     }
 }

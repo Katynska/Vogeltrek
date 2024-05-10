@@ -26,7 +26,8 @@ namespace VogeltrekWPF
     public partial class MainWindow : Window
     {
         public List<int> selectedAnswersFull { get; set; }
-        private GMapMarker previousMarker = null;
+        private GMapMarker primaryCityMarker = null; // Глобальная переменная для хранения метки основного города
+        private GMapMarker ratingCityMarker = null; //Глобальная переменная для хранения метки города из списка рейтинга
 
         //Конструктор первого запуска без параметров
         public MainWindow()
@@ -62,13 +63,25 @@ namespace VogeltrekWPF
         }
 
 
-        //Загрузка городов в выподающий список
+        // Добавляем метку на карту при выборе основного города из ComboBoxCityResidence
         private void ComboBoxCityResidence_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Вывод выбранного города в консоль
+            // Получаем выбранный город из списка
             string selectedCity = (sender as ComboBox).SelectedItem as string;
+
+            // Получаем координаты выбранного города из базы данных
             if (!string.IsNullOrEmpty(selectedCity))
             {
+                (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(selectedCity);
+
+                // Удаляем предыдущую метку основного города, если она существует
+                if (primaryCityMarker != null)
+                {
+                    mapSurvey.Markers.Remove(primaryCityMarker);
+                }
+
+                // Добавляем новую метку основного города на карту Gmap.NET
+                primaryCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, isPrimaryCity: true);
                 Console.WriteLine("Выбранный город: " + selectedCity);
             }
         }
@@ -77,6 +90,12 @@ namespace VogeltrekWPF
         //Отображение метки при выборе города из списка рейтинга
         private void listRatingCities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Очищаем список меток городов рейтинга, если он не пуст
+            if (ratingCityMarker != null)
+            {
+                mapSurvey.Markers.Remove(ratingCityMarker);
+            }
+
             // Получаем выбранный город из списка
             string selectedCity = listRatingCities.SelectedItem as string;
 
@@ -85,8 +104,8 @@ namespace VogeltrekWPF
             {
                 (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(selectedCity);
 
-                // Добавляем метку на карту Gmap.NET
-                GmapSheet.AddMarker(mapSurvey, latitude, longitude);
+                // Добавляем метку города рейтинга на карту Gmap.NET
+                ratingCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude);
             }
         }
     }
