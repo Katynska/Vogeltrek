@@ -95,7 +95,7 @@ namespace VogeltrekWPF
 
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = questions[i].Text;
-                textBlock.FontSize = 18;
+                textBlock.FontSize = 20;
                 textBlock.Margin = new Thickness(0, 20, 0, 0);
 
                 ItemsControl itemsControl = new ItemsControl();

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VogeltrekWPF"
         mc:Ignorable="d"
-        Title="Окно опроса" Height="450" Width="800">
+        Title="Окно опроса" Height="450" Width="911">
     <Window.Resources>
         <DataTemplate x:Key="RadioButtonTemplate">
-            <RadioButton Content="{Binding Text}" GroupName="Answers" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+            <RadioButton Content="{Binding Text}" FontSize="14" GroupName="Answers" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -22,7 +22,7 @@
         <TextBlock x:Name="TextBlockTitle" Grid.Row="0" Text="Опросник" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,20" Width="287" TextAlignment="Center"/>
 
         <!-- Контейнер опроса -->
-        <StackPanel Name="mainPanel" Grid.Row="1" Margin="50,50,50,10"/>
+        <StackPanel Name="mainPanel" Grid.Row="1" Margin="22,50,18,10"/>
 
         <Button x:Name="AcceptAnswerButton" Content="Ответить" Click="AcceptAnswer_Click" Margin="168,10,0,0" Width="90" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="33"/>
         <Button x:Name="RollbackAnswerButton" Content="Назад" Click="RollbackAnswer_Click" Margin="56,10,0,0" Width="89" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="33"/>
