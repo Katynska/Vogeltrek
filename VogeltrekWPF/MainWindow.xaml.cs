@@ -59,6 +59,11 @@ namespace VogeltrekWPF
             {
                 // Выводим полученный список в консоль в одной строке
                 Console.WriteLine("Список выбранных ответов в MainWindow: " + string.Join(", ", this.selectedAnswersFull));
+                
+                List<string> sortedCities = DataBaseSQLite.SortCitiesByRating(selectedAnswersFull);
+
+                // Обновляем список городов в listRatingCities
+                listRatingCities.ItemsSource = sortedCities;
             };
         }
 

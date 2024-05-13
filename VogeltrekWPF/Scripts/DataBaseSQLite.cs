@@ -9,6 +9,20 @@ using System.Windows.Markup;
 
 namespace VogeltrekWPF.Scripts
 {
+    public class CityRating
+    {
+        public string CityName { get; set; }
+        public int TotalScore { get; set; }
+    }
+
+    public class CityComparer : IComparer<CityRating>
+    {
+        public int Compare(CityRating x, CityRating y)
+        {
+            return x.TotalScore.CompareTo(y.TotalScore);
+        }
+    }
+
     internal class DataBaseSQLite
     {
         //Загружает данные в ListBox и ComboBox
@@ -80,6 +94,68 @@ namespace VogeltrekWPF.Scripts
             }
 
             return (latitude, longitude);
+        }
+
+        //Загружает в список отсортированный рейтинг городов
+        public static List<string> SortCitiesByRating(List<int> selectedAnswersFull)
+        {
+            List<CityRating> cityRatings = new List<CityRating>();
+
+            // Получаем значения критериев из selectedAnswersFull
+            int[] selectedCriteriaValues = selectedAnswersFull.ToArray();
+
+            // Подключение к базе данных SQLite
+            string connectionString = $"Data Source=|DataDirectory|\\Resources\\DBRussianCities.db;Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Выбираем данные о городах из БД
+                string query = "SELECT city, temperament, climate, infrastructure, workWages, housingAffordability, ecology, medicalLevel FROM city_filtered";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Получаем данные о городе из запроса
+                            string cityName = reader["city"].ToString();
+                            int[] cityCriteriaValues = new int[7];
+                            for (int i = 0; i < 7; i++)
+                            {
+                                object value = reader[i + 1];
+                                if (value != DBNull.Value)
+                                {
+                                    cityCriteriaValues[i] = Convert.ToInt32(value);
+                                }
+                                else
+                                {
+                                    // Обработка случая, когда значение равно DBNull
+                                    cityCriteriaValues[i] = 0; // Пример присвоения нулевого значения
+                                }
+                            }
+
+                            // Вычисляем общий балл для города
+                            int totalScore = 0;
+                            for (int i = 0; i < 7; i++)
+                            {
+                                totalScore += Math.Abs(selectedCriteriaValues[i] - cityCriteriaValues[i]);
+                            }
+
+                            // Добавляем город и его общий балл в список
+                            cityRatings.Add(new CityRating { CityName = cityName, TotalScore = totalScore });
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            // Сортируем города по общему баллу
+            cityRatings.Sort(new CityComparer());
+
+            // Возвращаем отсортированные города
+            return cityRatings.Select(cityRating => cityRating.CityName).ToList();
         }
     }
 }
