@@ -64,6 +64,19 @@ namespace VogeltrekWPF
 
                 // Обновляем список городов в listRatingCities
                 listRatingCities.ItemsSource = sortedCities;
+                
+                // Проверяем, выбран ли основной город
+                if (ComboBoxCityResidence.SelectedItem != null)
+                {
+                    // Отображаем соединительные линии к основному городу
+                    string selectedCity = ComboBoxCityResidence.SelectedItem as string;
+                    (double primaryLatitude, double primaryLongitude) = DataBaseSQLite.GetCityCoordinates(selectedCity);
+                    foreach (string city in sortedCities.Take(5))
+                    {
+                        (double cityLatitude, double cityLongitude) = DataBaseSQLite.GetCityCoordinates(city);
+                        GmapSheet.AddRoute(mapSurvey, primaryLatitude, primaryLongitude, cityLatitude, cityLongitude, city);
+                    }
+                }
             };
         }
 
@@ -79,11 +92,8 @@ namespace VogeltrekWPF
             {
                 (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(selectedCity);
 
-                // Удаляем предыдущую метку основного города, если она существует
-                if (primaryCityMarker != null)
-                {
-                    mapSurvey.Markers.Remove(primaryCityMarker);
-                }
+                // Очищаем карту от предыдущих меток и маршрутов
+                GmapSheet.ClearMap(mapSurvey);
 
                 // Добавляем новую метку основного города на карту Gmap.NET
                 primaryCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, isPrimaryCity: true);
