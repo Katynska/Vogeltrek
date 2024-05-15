@@ -4,17 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
-        xmlns:local="clr-namespace:VogeltrekWPF.Scripts"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="VogeltrekWPF.MainWindow" 
+        xmlns:local="clr-namespace:VogeltrekWPF.Scripts" x:Class="VogeltrekWPF.MainWindow" 
         mc:Ignorable="d"
         Title="Главное окно" Height="714" Width="856">
 
     <Window.Resources>
-        <!--Стили RangeSlider-->
-        <Style x:Key="RangeSliderStyle" TargetType="xctk:RangeSlider">
-            <Setter Property="RangeBackground" Value="#FF3399FF" />
-        </Style>
-
         <!-- Пример Стилей для кнопок -->
         <!--
         <Style x:Key="ButtonStyle" TargetType="Button">
