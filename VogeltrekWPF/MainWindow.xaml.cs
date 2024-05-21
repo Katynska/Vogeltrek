@@ -96,7 +96,7 @@ namespace VogeltrekWPF
                 GmapSheet.ClearMap(mapSurvey);
 
                 // Добавляем новую метку основного города на карту Gmap.NET
-                primaryCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, isPrimaryCity: true);
+                primaryCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, selectedCity, isPrimaryCity: true);
                 Console.WriteLine("Выбранный город: " + selectedCity);
             }
         }
@@ -120,7 +120,7 @@ namespace VogeltrekWPF
                 (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(selectedCity);
 
                 // Добавляем метку города рейтинга на карту Gmap.NET
-                ratingCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude);
+                ratingCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, selectedCity);
             }
         }
     }

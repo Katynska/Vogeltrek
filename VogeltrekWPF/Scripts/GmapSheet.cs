@@ -11,6 +11,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 
 namespace VogeltrekWPF.Scripts
@@ -35,39 +36,25 @@ namespace VogeltrekWPF.Scripts
         }
 
 
-        public static GMapMarker AddMarker(GMapControl map, double latitude, double longitude, bool isPrimaryCity = false)
+        public static GMapMarker AddMarker(GMapControl map, double latitude, double longitude, string cityName, bool isPrimaryCity = false)
         {
             // Создаем метку на карту Gmap.NET
             GMapMarker marker = null;
             if (latitude != 0.0 && longitude != 0.0)
             {
-                marker = new GMapMarker(new PointLatLng(latitude, longitude));
-
-                // Выбираем форму и цвет метки в зависимости от типа города
-                if (isPrimaryCity)
+                marker = new GMapMarker(new PointLatLng(latitude, longitude))
                 {
-                    marker.Shape = new Ellipse
+                    Shape = new TextBlock
                     {
-                        Width = 12,
-                        Height = 12,
-                        Stroke = Brushes.Blue,
-                        Fill = Brushes.Blue,
-                        Opacity = 0.6
-                    };
-                }
-                else
-                {
-                    marker.Shape = new Ellipse
-                    {
-                        Width = 10,
-                        Height = 10,
-                        Stroke = Brushes.Red,
-                        Fill = Brushes.Red,
-                        Opacity = 0.6
-                    };
-                }
+                        Text = cityName,
+                        Foreground = isPrimaryCity ? Brushes.Blue : Brushes.Red,
+                        FontWeight = FontWeights.Bold,
+                        Background = Brushes.White,
+                        Padding = new Thickness(5),
+                        Opacity = 0.8
+                    }
+                };
 
-                // Добавляем метку на карту
                 map.Markers.Add(marker);
             }
 
@@ -75,15 +62,13 @@ namespace VogeltrekWPF.Scripts
         }
 
 
-
-        public static void AddRoute(GMapControl map, double startLatitude, double startLongitude, double endLatitude, double endLongitude, string city)
+        public static void AddRoute(GMapControl map, double startLatitude, double startLongitude, double endLatitude, double endLongitude, string cityName)
         {
-            // Создаем список точек для маршрута
             var routePoints = new List<PointLatLng>
-            {
-                new PointLatLng(startLatitude, startLongitude), // Начальная точка
-                new PointLatLng(endLatitude, endLongitude) // Конечная точка
-            };
+    {
+        new PointLatLng(startLatitude, startLongitude),
+        new PointLatLng(endLatitude, endLongitude)
+    };
 
             // Создаем маршрут
             var route = new GMapRoute(routePoints)
@@ -101,19 +86,19 @@ namespace VogeltrekWPF.Scripts
             // Отмечаем город на карте
             var marker = new GMapMarker(new PointLatLng(endLatitude, endLongitude))
             {
-                Shape = new Ellipse
+                Shape = new TextBlock
                 {
-                    Width = 12,
-                    Height = 12,
-                    Stroke = Brushes.Green,
-                    Fill = Brushes.Green,
-                    Opacity = 0.6
+                    Text = cityName,
+                    Foreground = Brushes.Green,
+                    FontWeight = FontWeights.Bold,
+                    Background = Brushes.White,
+                    Padding = new Thickness(5),
+                    Opacity = 0.8
                 }
             };
 
             map.Markers.Add(marker);
         }
-
 
         // Метод для удаления всех меток и маршрутов с карты
         public static void ClearMap(GMapControl map)
