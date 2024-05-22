@@ -101,6 +101,30 @@ namespace VogeltrekWPF.Scripts
             map.Markers.Add(marker);
         }
 
+
+        public static void AddCircle(GMapControl map, double latitude, double longitude, string cityName)
+        {
+            // Создаем кружок на карту Gmap.NET
+            Ellipse circle = new Ellipse()
+            {
+                Width = 10,
+                Height = 10,
+                Fill = Brushes.Teal, // Цвет кружка
+                Opacity = 0.8
+            };
+
+            // При наведении мыши на кружок показываем название города
+            circle.ToolTip = cityName;
+
+            // Устанавливаем координаты кружка
+            GMapMarker marker = new GMapMarker(new PointLatLng(latitude, longitude));
+            marker.Shape = circle;
+
+            // Добавляем кружок на карту
+            map.Markers.Add(marker);
+        }
+
+
         // Метод для удаления всех меток и маршрутов с карты
         public static void ClearMap(GMapControl map)
         {

@@ -68,10 +68,15 @@
                 <MenuItem Header="О программе" Command="{x:Static local:MenuCommands.SavePicture}" />
             </MenuItem>
         </Menu>
+
+        <!--Ползунки критериев (расстояние и численность людей)-->
         <Slider Grid.Column="1" HorizontalAlignment="Left" Margin="286,62,0,0" VerticalAlignment="Top" Width="120"/>
         <Slider Grid.Column="1" HorizontalAlignment="Left" Margin="489,62,0,0" VerticalAlignment="Top" Width="120"/>
-        <Image HorizontalAlignment="Center" Height="30" Margin="0,56,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomIn.png" MouseDown="ZoomIN_Click"/>
-        <Image HorizontalAlignment="Center" Height="30" Margin="0,96,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomOut.png" MouseDown="ZoomOut_Click"/>
+
+        <!--Увеличение и уменьшение масштаба карты-->
+        <Image HorizontalAlignment="Center" Height="30" Margin="0,61,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomIn.png" MouseDown="ZoomIN_Click"/>
+        <Image HorizontalAlignment="Center" Height="30" Margin="0,101,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomOut.png" MouseDown="ZoomOut_Click"/>
+        <Image HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/filter.png" MouseDown="Filter_Click"/>
 
 
     </Grid>

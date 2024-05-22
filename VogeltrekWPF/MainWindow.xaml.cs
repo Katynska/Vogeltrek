@@ -28,6 +28,7 @@ namespace VogeltrekWPF
         public List<int> selectedAnswersFull { get; set; }
         private GMapMarker primaryCityMarker = null; // Глобальная переменная для хранения метки основного города
         private GMapMarker ratingCityMarker = null; //Глобальная переменная для хранения метки города из списка рейтинга
+        private bool isFilterEnabled = false; // Переменная для отслеживания состояния фильтра
 
         //Конструктор первого запуска без параметров
         public MainWindow()
@@ -136,6 +137,28 @@ namespace VogeltrekWPF
         private void ZoomOut_Click(object sender, MouseButtonEventArgs e)
         {
             mapSurvey.Zoom -= 1; // Увеличиваем масштаб карты на единицу при каждом нажатии
+        }
+
+        private void Filter_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Инвертируем состояние фильтра
+            isFilterEnabled = !isFilterEnabled;
+
+            if (isFilterEnabled)
+            {
+                // Включаем отображение всех городов из списка
+                // Перебираем все элементы в списке рейтинга городов и отображаем их на карте
+                foreach (string city in listRatingCities.Items)
+                {
+                    (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(city);
+                    GmapSheet.AddCircle(mapSurvey, latitude, longitude, city);
+                }
+            }
+            else
+            {
+                // Удаляем все метки городов с карты
+                GmapSheet.ClearMap(mapSurvey);
+            }
         }
     }
 }
