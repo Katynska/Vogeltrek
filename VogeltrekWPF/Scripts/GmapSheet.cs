@@ -26,7 +26,8 @@ namespace VogeltrekWPF.Scripts
             map.MinZoom = 2;
             map.MaxZoom = 17;
             // whole world zoom
-            map.Zoom = 2;
+            map.Zoom = 3; // Устанавливаем начальный масштаб
+            map.Position = new PointLatLng(64.6863, 97.7453); // Устанавливаем начальные координаты центра (примерно центральная точка России)
             // lets the map use the mousewheel to zoom
             map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             // lets the user drag the map

@@ -36,9 +36,12 @@ namespace VogeltrekWPF
             GmapSheet.ConfigureMap(mapSurvey);
             DataBaseSQLite.LoadDataFromDB(listRatingCities, ComboBoxCityResidence);
 
-            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.NewProject, Scripts.MenuCommands.NewProject_Executed));
-            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.OpenProject, Scripts.MenuCommands.OpenProject_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.SavePicture, Scripts.MenuCommands.SavePicture_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.Exit, Scripts.MenuCommands.Exit_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.ClimateLayer, Scripts.MenuCommands.ClimateLayer_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.EcologicalLayer, Scripts.MenuCommands.EcologicalLayer_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.DefaultZoom, Scripts.MenuCommands.DefaultZoom_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.CenterZoom, Scripts.MenuCommands.CenterZoom_Executed));
         }
 
 
@@ -122,6 +125,17 @@ namespace VogeltrekWPF
                 // Добавляем метку города рейтинга на карту Gmap.NET
                 ratingCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, selectedCity);
             }
+        }
+
+
+        private void ZoomIN_Click(object sender, MouseButtonEventArgs e)
+        {
+            mapSurvey.Zoom += 1; // Увеличиваем масштаб карты на единицу при каждом нажатии
+        }
+
+        private void ZoomOut_Click(object sender, MouseButtonEventArgs e)
+        {
+            mapSurvey.Zoom -= 1; // Увеличиваем масштаб карты на единицу при каждом нажатии
         }
     }
 }

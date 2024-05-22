@@ -6,7 +6,7 @@
         xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
         xmlns:local="clr-namespace:VogeltrekWPF.Scripts" x:Class="VogeltrekWPF.MainWindow" 
         mc:Ignorable="d"
-        Title="Главное окно" Height="714" Width="856">
+        Title="Главное окно" Height="714" Width="900">
 
     <Window.Resources>
         <!-- Пример Стилей для кнопок -->
@@ -53,20 +53,25 @@
         <!--Меню-->
         <Menu Height="22" VerticalAlignment="Top" Grid.ColumnSpan="3" Background="#B2F8F2F5">
             <MenuItem Header="Файл">
-                <MenuItem Header="New Project" Command="{x:Static local:MenuCommands.NewProject}" />
-                <MenuItem Header="Open Project" Command="{x:Static local:MenuCommands.OpenProject}">
-                    <MenuItem Header="WinForms" Command="{x:Static local:MenuCommands.OpenProject}" />
-                    <MenuItem Header="WPF" Command="{x:Static local:MenuCommands.OpenProject}" />
-                </MenuItem>
-                <Separator />
+                <MenuItem Header="Сохранить результаты" Command="{x:Static local:MenuCommands.SavePicture}" />
                 <MenuItem Header="Выход" InputGestureText="Alt+F4" Command="{x:Static local:MenuCommands.Exit}" />
             </MenuItem>
-            <MenuItem Header="Карта" ></MenuItem>
-            <MenuItem Header="Вид" ></MenuItem>
-            <MenuItem Header="Справка" ></MenuItem>
+            <MenuItem Header="Карта" >
+                <MenuItem Header="Климатический слой" Command="{x:Static local:MenuCommands.ClimateLayer}" />
+                <MenuItem Header="Экологический слой" Command="{x:Static local:MenuCommands.EcologicalLayer}" />
+            </MenuItem>
+            <MenuItem Header="Вид">
+                <MenuItem Header="По умолчанию" Command="{x:Static local:MenuCommands.DefaultZoom}" />
+                <MenuItem Header="Центрировать" Command="{x:Static local:MenuCommands.CenterZoom}" />
+            </MenuItem>
+            <MenuItem Header="Справка" >
+                <MenuItem Header="О программе" Command="{x:Static local:MenuCommands.SavePicture}" />
+            </MenuItem>
         </Menu>
         <Slider Grid.Column="1" HorizontalAlignment="Left" Margin="286,62,0,0" VerticalAlignment="Top" Width="120"/>
         <Slider Grid.Column="1" HorizontalAlignment="Left" Margin="489,62,0,0" VerticalAlignment="Top" Width="120"/>
+        <Image HorizontalAlignment="Center" Height="30" Margin="0,56,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomIn.png" MouseDown="ZoomIN_Click"/>
+        <Image HorizontalAlignment="Center" Height="30" Margin="0,96,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomOut.png" MouseDown="ZoomOut_Click"/>
 
 
     </Grid>

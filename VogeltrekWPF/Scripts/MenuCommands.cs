@@ -11,21 +11,16 @@ namespace VogeltrekWPF.Scripts
     internal static class MenuCommands
     {
         // Определение команды с помощью RoutedUICommand
-            public static readonly RoutedUICommand NewProject = new RoutedUICommand("New Project", "NewProject", typeof(MenuCommands));
-            public static readonly RoutedUICommand OpenProject = new RoutedUICommand("Open Project", "OpenProject", typeof(MenuCommands));
+            public static readonly RoutedUICommand SavePicture = new RoutedUICommand("Сохранить результаты", "SavePicture", typeof(MenuCommands));
             public static readonly RoutedUICommand Exit = new RoutedUICommand("Выход", "Exit", typeof(MenuCommands));
-        
-
-        public static void NewProject_Executed(object sender, ExecutedRoutedEventArgs e)
+            public static readonly RoutedUICommand ClimateLayer = new RoutedUICommand("Климатический слой", "ClimateLayer", typeof(MenuCommands));
+            public static readonly RoutedUICommand EcologicalLayer = new RoutedUICommand("Экологический слой", "EcologicalLayer", typeof(MenuCommands));
+            public static readonly RoutedUICommand DefaultZoom = new RoutedUICommand("По умолчанию", "DefaultZoom", typeof(MenuCommands));
+            public static readonly RoutedUICommand CenterZoom = new RoutedUICommand("Центрировать", "CenterZoom", typeof(MenuCommands));
+        public static void SavePicture_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             // Обработка команды "New Project"
         }
-
-        public static void OpenProject_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            // Обработка команды "Open Project"
-        }
-
         public static void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             // Обработка команды "Выход"
@@ -34,5 +29,28 @@ namespace VogeltrekWPF.Scripts
                 window.Close();
             }
         }
+
+        public static void ClimateLayer_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // Обработка команды "Open Project"
+        }
+
+
+        public static void EcologicalLayer_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // Обработка команды "Open Project"
+        }
+
+        public static void DefaultZoom_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // Обработка команды "Open Project"
+        }
+
+        public static void CenterZoom_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // Обработка команды "Open Project"
+        }
+
+
     }
 }
