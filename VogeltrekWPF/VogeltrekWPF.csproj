@@ -89,12 +89,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InformationHelp.xaml.cs">
+      <DependentUpon>InformationHelp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="QuestionnaireWindow.xaml.cs">
       <DependentUpon>QuestionnaireWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Scripts\DataBaseSQLite.cs" />
     <Compile Include="Scripts\GmapSheet.cs" />
     <Compile Include="Scripts\MenuCommands.cs" />
+    <Page Include="InformationHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -12,6 +12,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 
 namespace VogeltrekWPF.Scripts
@@ -37,6 +38,7 @@ namespace VogeltrekWPF.Scripts
         }
 
 
+        //Метод добовления названий городов на карту при выборе из рейтинга или выподающего списка
         public static GMapMarker AddMarker(GMapControl map, double latitude, double longitude, string cityName, bool isPrimaryCity = false)
         {
             // Создаем метку на карту Gmap.NET
@@ -63,6 +65,7 @@ namespace VogeltrekWPF.Scripts
         }
 
 
+        //Метод орисовки линий к городам после завершения опроса
         public static void AddRoute(GMapControl map, double startLatitude, double startLongitude, double endLatitude, double endLongitude, string cityName)
         {
             var routePoints = new List<PointLatLng>
@@ -102,6 +105,7 @@ namespace VogeltrekWPF.Scripts
         }
 
 
+        //Метод отрисовки Вкл/Выкл отображения всех городов
         public static void AddCircle(GMapControl map, double latitude, double longitude, string cityName)
         {
             // Создаем кружок на карту Gmap.NET
@@ -130,5 +134,34 @@ namespace VogeltrekWPF.Scripts
         {
             map.Markers.Clear();
         }
+
+        //Метод сохранения скриншота карты
+        public static void SaveMapAsImage(GMapControl map)
+        {
+            RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)map.ActualWidth, (int)map.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            renderTarget.Render(map);
+
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(renderTarget));
+
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string filePath = $"MapScreen_{timestamp}.png"; // уникальный путь к файлу для сохранения
+            using (var fileStream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+            {
+                encoder.Save(fileStream);
+            }
+
+            MessageBox.Show("Скриншот карты сохранен как " + filePath);
+        }
+
+
+        // Метод для возврата карты в исходное положение
+        public static void SetDefaultView(GMapControl map)
+        {
+            map.Position = new PointLatLng(64.6863, 97.7453); // Устанавливаем начальные координаты центра
+            map.Zoom = 3; // Устанавливаем начальный масштаб
+        }
+
+       
     }
 }

@@ -19,7 +19,10 @@ namespace VogeltrekWPF.Scripts
             public static readonly RoutedUICommand CenterZoom = new RoutedUICommand("Центрировать", "CenterZoom", typeof(MenuCommands));
         public static void SavePicture_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Обработка команды "New Project"
+            if (sender is MainWindow window)
+            {
+                GmapSheet.SaveMapAsImage(window.mapSurvey);
+            }
         }
         public static void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -43,7 +46,10 @@ namespace VogeltrekWPF.Scripts
 
         public static void DefaultZoom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Обработка команды "Open Project"
+            if (sender is MainWindow window)
+            {
+                GmapSheet.SetDefaultView(window.mapSurvey);
+            }
         }
 
         public static void CenterZoom_Executed(object sender, ExecutedRoutedEventArgs e)
