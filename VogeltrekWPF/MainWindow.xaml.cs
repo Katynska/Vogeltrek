@@ -43,6 +43,7 @@ namespace VogeltrekWPF
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.EcologicalLayer, Scripts.MenuCommands.EcologicalLayer_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.DefaultZoom, Scripts.MenuCommands.DefaultZoom_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.CenterZoom, Scripts.MenuCommands.CenterZoom_Executed));
+            CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.ChangeMapType, MenuCommands.ChangeMapType_Executed));
         }
 
 

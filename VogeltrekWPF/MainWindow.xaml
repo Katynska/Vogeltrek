@@ -56,9 +56,14 @@
                 <MenuItem Header="Сохранить результаты" Command="{x:Static local:MenuCommands.SavePicture}" />
                 <MenuItem Header="Выход" InputGestureText="Alt+F4" Command="{x:Static local:MenuCommands.Exit}" />
             </MenuItem>
-            <MenuItem Header="Карта" >
+            <MenuItem Header="Карта">
                 <MenuItem Header="Климатический слой" Command="{x:Static local:MenuCommands.ClimateLayer}" />
                 <MenuItem Header="Экологический слой" Command="{x:Static local:MenuCommands.EcologicalLayer}" />
+                <MenuItem Header="Сменить тип карты">
+                    <MenuItem Header="Топографическая" Command="{x:Static local:MenuCommands.ChangeMapType}" CommandParameter="Топографическая"/>
+                    <MenuItem Header="Ландшафтная" Command="{x:Static local:MenuCommands.ChangeMapType}" CommandParameter="Ландшафтная"/>
+                    <MenuItem Header="WikiMapia" Command="{x:Static local:MenuCommands.ChangeMapType}" CommandParameter="WikiMapia"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Вид">
                 <MenuItem Header="По умолчанию" Command="{x:Static local:MenuCommands.DefaultZoom}" />

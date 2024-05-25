@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GMap.NET.MapProviders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,13 @@ namespace VogeltrekWPF.Scripts
     internal static class MenuCommands
     {
         // Определение команды с помощью RoutedUICommand
-            public static readonly RoutedUICommand SavePicture = new RoutedUICommand("Сохранить результаты", "SavePicture", typeof(MenuCommands));
-            public static readonly RoutedUICommand Exit = new RoutedUICommand("Выход", "Exit", typeof(MenuCommands));
-            public static readonly RoutedUICommand ClimateLayer = new RoutedUICommand("Климатический слой", "ClimateLayer", typeof(MenuCommands));
-            public static readonly RoutedUICommand EcologicalLayer = new RoutedUICommand("Экологический слой", "EcologicalLayer", typeof(MenuCommands));
-            public static readonly RoutedUICommand DefaultZoom = new RoutedUICommand("По умолчанию", "DefaultZoom", typeof(MenuCommands));
-            public static readonly RoutedUICommand CenterZoom = new RoutedUICommand("Центрировать", "CenterZoom", typeof(MenuCommands));
+        public static readonly RoutedUICommand SavePicture = new RoutedUICommand("Сохранить результаты", "SavePicture", typeof(MenuCommands));
+        public static readonly RoutedUICommand Exit = new RoutedUICommand("Выход", "Exit", typeof(MenuCommands));
+        public static readonly RoutedUICommand ClimateLayer = new RoutedUICommand("Климатический слой", "ClimateLayer", typeof(MenuCommands));
+        public static readonly RoutedUICommand EcologicalLayer = new RoutedUICommand("Экологический слой", "EcologicalLayer", typeof(MenuCommands));
+        public static readonly RoutedUICommand DefaultZoom = new RoutedUICommand("По умолчанию", "DefaultZoom", typeof(MenuCommands));
+        public static readonly RoutedUICommand CenterZoom = new RoutedUICommand("Центрировать", "CenterZoom", typeof(MenuCommands));
+        public static readonly RoutedUICommand ChangeMapType = new RoutedUICommand("Сменить тип карты", "ChangeMapType", typeof(MenuCommands));
         public static void SavePicture_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (sender is MainWindow window)
@@ -54,9 +56,32 @@ namespace VogeltrekWPF.Scripts
 
         public static void CenterZoom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Обработка команды "Open Project"
+
         }
 
+        public static void ChangeMapType_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (sender is MainWindow window)
+            {
+                string selectedMapType = e.Parameter as string;
 
+                switch (selectedMapType)
+                {
+                    case "Топографическая":
+                        window.mapSurvey.MapProvider = GMapProviders.OpenStreetMap;
+                        break;
+                    case "Ландшафтная":
+                        window.mapSurvey.MapProvider = GMapProviders.OpenCycleLandscapeMap;
+                        break;
+                    case "WikiMapia":
+                        window.mapSurvey.MapProvider = GMapProviders.WikiMapiaMap;
+                        break;
+                    default:
+                        window.mapSurvey.MapProvider = GMapProviders.OpenStreetMap;
+                        break;
+                }
+            }
+
+        }
     }
 }
