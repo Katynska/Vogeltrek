@@ -181,7 +181,7 @@ namespace VogeltrekWPF
             // Очищаем карту от всех меток при деактивации чекбокса
             GmapSheet.ClearMap(mapSurvey);
             // Сбрасываем заголовок чекбокса
-            CheckBoxPopulation.Content = "Отображать круги";
+            CheckBoxPopulation.Content = "Вкл";
         }
 
 

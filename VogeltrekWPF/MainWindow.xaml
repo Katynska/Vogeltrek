@@ -32,8 +32,8 @@
     <Grid x:Name="GridMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="74*"/>
-            <RowDefinition Height="228*"/>
-            <RowDefinition Height="47*"/>
+            <RowDefinition Height="258*"/>
+            <RowDefinition Height="17*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="38*"/>
@@ -55,7 +55,7 @@
         <!--Ползунки пользовательских настроек-->
 
         <!--Инициализация стилей ползунка-->
-        <Label Grid.Column="1" Content="Численности населения" HorizontalAlignment="Left" Margin="327,36,0,0" VerticalAlignment="Top" Height="26" Width="150"/>
+        <Label Grid.Column="1" Content="Численности населения" HorizontalAlignment="Left" Margin="316,36,0,0" VerticalAlignment="Top" Height="26" Width="169" FontSize="14"/>
         <Button Grid.Column="1" Content="Переход к опросу" Margin="214,105,122,0" VerticalAlignment="Top" Click="Button_Click" Height="23" FontSize="14"/>
 
         <!--Меню-->
@@ -86,12 +86,12 @@
         <Slider x:Name="SliderPopulation" Grid.Column="1" Margin="254,62,0,0" VerticalAlignment="Top"
         Minimum="100" Maximum="100000"
         TickFrequency="3000" HorizontalAlignment="Left" Width="272"
-        SmallChange="5" IsSnapToTickEnabled="True" Delay="100" IsMoveToPointEnabled="True" TickPlacement="BottomRight"/>
-        <CheckBox x:Name="CheckBoxPopulation" Content="Вкл" HorizontalAlignment="Left" Margin="531,63,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        SmallChange="5" IsSnapToTickEnabled="True" Delay="100" IsMoveToPointEnabled="True" TickPlacement="BottomRight" Height="24"/>
+        <CheckBox x:Name="CheckBoxPopulation" Content="Вкл" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" HorizontalAlignment="Left" Margin="531,63,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="116"/>
 
         <!-- Надписи меток слайдера -->
-        <Label Grid.Column="1" Content="100" Margin="240,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
-        <Label Grid.Column="1" Content="1000000" Margin="513,78,0,0" Style="{StaticResource SliderLabelStyle}" Width="54"/>
+        <Label Grid.Column="1" Content="100" Margin="240,78,0,0" Style="{StaticResource SliderLabelStyle}" Height="22" Width="32"/>
+        <Label Grid.Column="1" Content="1000000" Margin="513,78,0,0" Style="{StaticResource SliderLabelStyle}" Width="54" Height="22"/>
 
         <!--Увеличение и уменьшение масштаба карты-->
         <Image HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/filter.png" MouseDown="Filter_Click"/>
