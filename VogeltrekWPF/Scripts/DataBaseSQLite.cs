@@ -157,5 +157,35 @@ namespace VogeltrekWPF.Scripts
             // Возвращаем отсортированные города
             return cityRatings.Select(cityRating => cityRating.CityName).ToList();
         }
+
+
+        //Полчение занчений количество населения городов из БД
+        public static int GetCityPopulation(string cityName)
+        {
+            int population = 0;
+
+            // Подключение к базе данных SQLite
+            string connectionString = $"Data Source=|DataDirectory|\\Resources\\DBRussianCities.db;Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Выбираем численность населения выбранного города из таблицы "city_filtered"
+                string query = "SELECT population FROM city_filtered WHERE city = @City";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@City", cityName);
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        population = Convert.ToInt32(result);
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return population;
+        }
     }
 }

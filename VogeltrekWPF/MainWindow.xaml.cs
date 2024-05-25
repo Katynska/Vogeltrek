@@ -37,6 +37,10 @@ namespace VogeltrekWPF
             GmapSheet.ConfigureMap(mapSurvey);
             DataBaseSQLite.LoadDataFromDB(listRatingCities, ComboBoxCityResidence);
 
+            // Добавляем обработчик события Checked для CheckBox
+            this.CheckBoxPopulation.Checked += CheckBox_Checked;
+            SliderPopulation.ValueChanged += SliderPopulation_ValueChanged;
+
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.SavePicture, Scripts.MenuCommands.SavePicture_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.Exit, Scripts.MenuCommands.Exit_Executed));
             CommandBindings.Add(new CommandBinding(Scripts.MenuCommands.ClimateLayer, Scripts.MenuCommands.ClimateLayer_Executed));
@@ -130,16 +134,19 @@ namespace VogeltrekWPF
         }
 
 
+        //Кнопка увеличение масштаба
         private void ZoomIN_Click(object sender, MouseButtonEventArgs e)
         {
             mapSurvey.Zoom += 1; // Увеличиваем масштаб карты на единицу при каждом нажатии
         }
-
+        //Кнопка уменьшение масштаба
         private void ZoomOut_Click(object sender, MouseButtonEventArgs e)
         {
             mapSurvey.Zoom -= 1; // Увеличиваем масштаб карты на единицу при каждом нажатии
         }
 
+
+        //Кнопка фильтра отображение всех гордов
         private void Filter_Click(object sender, MouseButtonEventArgs e)
         {
             // Инвертируем состояние фильтра
@@ -152,13 +159,57 @@ namespace VogeltrekWPF
                 foreach (string city in listRatingCities.Items)
                 {
                     (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(city);
-                    GmapSheet.AddCircle(mapSurvey, latitude, longitude, city);
+                    GmapSheet.AddCircle(mapSurvey, latitude, longitude, city, Brushes.Teal);
                 }
             }
             else
             {
                 // Удаляем все метки городов с карты
                 GmapSheet.ClearMap(mapSurvey);
+            }
+        }
+
+        //Обработка вкл чекбокса
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            // Вызываем метод SliderPopulation_ValueChanged для первоначальной отрисовки меток
+            SliderPopulation_ValueChanged(SliderPopulation, new RoutedPropertyChangedEventArgs<double>(SliderPopulation.Value, SliderPopulation.Value));
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Очищаем карту от всех меток при деактивации чекбокса
+            GmapSheet.ClearMap(mapSurvey);
+            // Сбрасываем заголовок чекбокса
+            CheckBoxPopulation.Content = "Отображать круги";
+        }
+
+
+        private void SliderPopulation_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (CheckBoxPopulation.IsChecked == true)
+            {
+                // Получаем значение промежутка из SliderPopulation
+                int populationThreshold = (int)e.NewValue;
+
+                // Загружаем данные и отображаем круги городов на карте
+                GmapSheet.ClearMap(mapSurvey); // Очищаем карту от предыдущих меток
+                int count = 0; // Переменная для подсчета количества меток
+                foreach (string cityName in listRatingCities.Items.Cast<string>().ToList())
+                {
+                    (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(cityName);
+                    int population = DataBaseSQLite.GetCityPopulation(cityName);
+
+                    // Проверяем, попадает ли численность населения в заданный промежуток
+                    if (population <= populationThreshold)
+                    {
+                        // Добавляем круг города на карту
+                        GmapSheet.AddCircle(mapSurvey, latitude, longitude, cityName, Brushes.OrangeRed);
+                        count++; // Увеличиваем счетчик меток
+                    }
+                }
+                // Выводим количество меток в заголовок чекбокса
+                CheckBoxPopulation.Content = $"Городов ({count})";
             }
         }
     }

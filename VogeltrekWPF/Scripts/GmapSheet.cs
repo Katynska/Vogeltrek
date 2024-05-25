@@ -106,14 +106,14 @@ namespace VogeltrekWPF.Scripts
 
 
         //Метод отрисовки Вкл/Выкл отображения всех городов
-        public static void AddCircle(GMapControl map, double latitude, double longitude, string cityName)
+        public static void AddCircle(GMapControl map, double latitude, double longitude, string cityName, Brush color)
         {
             // Создаем кружок на карту Gmap.NET
             Ellipse circle = new Ellipse()
             {
                 Width = 10,
                 Height = 10,
-                Fill = Brushes.Teal, // Цвет кружка
+                Fill = color, // Цвет кружка
                 Opacity = 0.8
             };
 
@@ -162,6 +162,6 @@ namespace VogeltrekWPF.Scripts
             map.Zoom = 3; // Устанавливаем начальный масштаб
         }
 
-       
-    }
 }
+    }
+
