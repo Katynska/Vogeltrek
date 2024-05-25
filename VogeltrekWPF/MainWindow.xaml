@@ -16,7 +16,16 @@
             <Setter Property="Control.Background" Value="LightGray" />
             <Setter Property="Control.Foreground" Value="Black" />
         </Style>-->
-
+        
+        <!-- Стиль для текстовых блоков меток слайдера -->
+        <Style x:Key="SliderLabelStyle" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+        
     </Window.Resources>
 
     <!--Контейнер окна-->
@@ -44,7 +53,6 @@
         <ListBox x:Name="listRatingCities" SelectionChanged="listRatingCities_SelectionChanged" Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.RowSpan="2" Margin="10,148,10,0"/>
 
         <!--Ползунки пользовательских настроек-->
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="530,36,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
 
         <!--Инициализация стилей ползунка-->
         <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="327,36,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
@@ -75,14 +83,29 @@
         </Menu>
 
         <!--Ползунки критериев (расстояние и численность людей)-->
-        <Slider Grid.Column="1" HorizontalAlignment="Left" Margin="286,62,0,0" VerticalAlignment="Top" Width="120"/>
-        <Slider Grid.Column="1" HorizontalAlignment="Left" Margin="489,62,0,0" VerticalAlignment="Top" Width="120"/>
+        <Slider x:Name="SliderDistance" Grid.Column="1" Margin="254,62,0,0" VerticalAlignment="Top"
+        Minimum="500" Maximum="10000" TickPlacement="BottomRight"
+        TickFrequency="500" HorizontalAlignment="Left" Width="272"
+        SmallChange="5" IsSnapToTickEnabled="True"/>
+        <!-- Надписи меток слайдера -->
+        <Label Grid.Column="1" Content="500" Margin="240,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="1000" Margin="258,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="2000" Margin="285,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="3000" Margin="312,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="4000" Margin="339,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="5000" Margin="367,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="6000" Margin="395,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="7000" Margin="422,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="8000" Margin="450,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="9000" Margin="478,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
+        <Label Grid.Column="1" Content="10000" Margin="505,78,0,0" Style="{StaticResource SliderLabelStyle}"/>
 
         <!--Увеличение и уменьшение масштаба карты-->
+        <Image HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/filter.png" MouseDown="Filter_Click"/>
         <Image HorizontalAlignment="Center" Height="30" Margin="0,61,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomIn.png" MouseDown="ZoomIN_Click"/>
         <Image HorizontalAlignment="Center" Height="30" Margin="0,101,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/zoomOut.png" MouseDown="ZoomOut_Click"/>
-        <Image HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" VerticalAlignment="Top" Width="26" Grid.Row="1" Source="/Images/filter.png" MouseDown="Filter_Click"/>
 
+        
 
     </Grid>
 </Window>
