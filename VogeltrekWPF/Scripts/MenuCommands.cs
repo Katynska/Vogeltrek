@@ -19,6 +19,7 @@ namespace VogeltrekWPF.Scripts
         public static readonly RoutedUICommand DefaultZoom = new RoutedUICommand("По умолчанию", "DefaultZoom", typeof(MenuCommands));
         public static readonly RoutedUICommand CenterZoom = new RoutedUICommand("Центрировать", "CenterZoom", typeof(MenuCommands));
         public static readonly RoutedUICommand ChangeMapType = new RoutedUICommand("Сменить тип карты", "ChangeMapType", typeof(MenuCommands));
+        public static readonly RoutedUICommand InformationHelp = new RoutedUICommand("О программе", "InformationHelp", typeof(MenuCommands));
 
         // Команда для сохранения изображения карты
         public static void SavePicture_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -62,6 +63,7 @@ namespace VogeltrekWPF.Scripts
             }
         }
 
+
         // Команда для установки масштаба по умолчанию
         public static void DefaultZoom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -70,6 +72,7 @@ namespace VogeltrekWPF.Scripts
                 GmapSheet.SetDefaultView(window.mapSurvey);
             }
         }
+
 
         // Команда для центрирования карты на выбранном городе
         public static void CenterZoom_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -109,6 +112,17 @@ namespace VogeltrekWPF.Scripts
                 }
             }
 
+        }
+
+
+        // Команда для центрирования карты на выбранном городе
+        public static void InformationHelp_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // Создаем экземпляр окна InformationHelp
+            InformationHelp helpWindow = new InformationHelp();
+
+            // Отображаем окно
+            helpWindow.Show();
         }
     }
 }

@@ -78,7 +78,7 @@
                 <MenuItem Header="Центрировать" Command="{x:Static local:MenuCommands.CenterZoom}" />
             </MenuItem>
             <MenuItem Header="Справка" >
-                <MenuItem Header="О программе" Command="{x:Static local:MenuCommands.SavePicture}" />
+                <MenuItem Header="О программе" Command="{x:Static local:MenuCommands.InformationHelp}" />
             </MenuItem>
         </Menu>
 

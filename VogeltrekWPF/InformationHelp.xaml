@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VogeltrekWPF"
         mc:Ignorable="d"
-        Title="InformationHelp" Height="450" Width="800">
+        Title="О программе" Height="334" Width="270">
     <Grid>
-        
+        <TextBlock Text="Название программы" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="20"/>
+        <TextBlock Text="Версия: 1.0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+        <TextBlock Text="Автор: ваше имя" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="14"/>
     </Grid>
 </Window>
