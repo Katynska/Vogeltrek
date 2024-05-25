@@ -19,6 +19,8 @@ namespace VogeltrekWPF.Scripts
         public static readonly RoutedUICommand DefaultZoom = new RoutedUICommand("По умолчанию", "DefaultZoom", typeof(MenuCommands));
         public static readonly RoutedUICommand CenterZoom = new RoutedUICommand("Центрировать", "CenterZoom", typeof(MenuCommands));
         public static readonly RoutedUICommand ChangeMapType = new RoutedUICommand("Сменить тип карты", "ChangeMapType", typeof(MenuCommands));
+
+        // Команда для сохранения изображения карты
         public static void SavePicture_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (sender is MainWindow window)
@@ -26,6 +28,9 @@ namespace VogeltrekWPF.Scripts
                 GmapSheet.SaveMapAsImage(window.mapSurvey);
             }
         }
+
+
+        // Команда для выхода из приложения
         public static void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             // Обработка команды "Выход"
@@ -35,17 +40,29 @@ namespace VogeltrekWPF.Scripts
             }
         }
 
+
+        // Команда для переключения климатического слоя
         public static void ClimateLayer_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Обработка команды "Open Project"
+            if (sender is MainWindow window)
+            {
+                // Вызываем метод для переключения климатического слоя
+                GmapSheet.ToggleClimateLayer(window.mapSurvey);
+            }
         }
 
 
+        // Команда для отображения меток городов по экологическому слою
         public static void EcologicalLayer_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Обработка команды "Open Project"
+            if (sender is MainWindow window)
+            {
+                // Вызываем метод для отображения меток городов по экологическому слою
+                GmapSheet.ToggleEcologicalLayer(window.mapSurvey);
+            }
         }
 
+        // Команда для установки масштаба по умолчанию
         public static void DefaultZoom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (sender is MainWindow window)
@@ -54,11 +71,21 @@ namespace VogeltrekWPF.Scripts
             }
         }
 
+        // Команда для центрирования карты на выбранном городе
         public static void CenterZoom_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            if (sender is MainWindow window)
+            {
+                // Получаем координаты выбранного города
+                (double latitude, double longitude) = DataBaseSQLite.GetCityCoordinates(window.ComboBoxCityResidence.SelectedItem as string);
 
+                // Передаем координаты в метод SetCenterZoomView
+                GmapSheet.SetCenterZoomView(window.mapSurvey, latitude, longitude);
+            }
         }
 
+
+        // Команда для смены типа карты
         public static void ChangeMapType_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (sender is MainWindow window)

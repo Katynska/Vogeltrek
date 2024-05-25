@@ -187,5 +187,87 @@ namespace VogeltrekWPF.Scripts
 
             return population;
         }
+
+
+        public static List<(string cityName, double latitude, double longitude, int climate)> GetCityData()
+        {
+            List<(string cityName, double latitude, double longitude, int climate)> cityDataClimate = new List<(string cityName, double latitude, double longitude, int climate)>();
+
+            // Подключение к базе данных SQLite
+            string connectionString = $"Data Source=|DataDirectory|\\Resources\\DBRussianCities.db;Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Выбираем данные о городах из БД
+                string query = "SELECT city, geo_lat, geo_lon, climate FROM city_filtered";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Получаем данные о городе из запроса
+                            string cityName = reader["city"].ToString();
+                            double latitude = Convert.ToDouble(reader["geo_lat"]);
+                            double longitude = Convert.ToDouble(reader["geo_lon"]);
+                            int climateValue = 0; // Значение по умолчанию
+                            if (!reader.IsDBNull(reader.GetOrdinal("climate"))) // Проверяем, не является ли значение DBNull
+                            {
+                                climateValue = Convert.ToInt32(reader["climate"]);
+                            }
+
+                            // Добавляем данные о городе в список
+                            cityDataClimate.Add((cityName, latitude, longitude, climateValue));
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return cityDataClimate;
+        }
+
+
+        public static List<(string cityName, double latitude, double longitude, int ecology)> GetEcologicalData()
+        {
+            List<(string cityName, double latitude, double longitude, int ecology)> cityDataEcology = new List<(string cityName, double latitude, double longitude, int ecology)>();
+
+            // Подключение к базе данных SQLite
+            string connectionString = $"Data Source=|DataDirectory|\\Resources\\DBRussianCities.db;Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Выбираем данные о городах из БД
+                string query = "SELECT city, geo_lat, geo_lon, ecology FROM city_filtered";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Получаем данные о городе из запроса
+                            string cityName = reader["city"].ToString();
+                            double latitude = Convert.ToDouble(reader["geo_lat"]);
+                            double longitude = Convert.ToDouble(reader["geo_lon"]);
+                            int ecologyValue = 0; // Значение по умолчанию
+                            if (!reader.IsDBNull(reader.GetOrdinal("ecology"))) // Проверяем, не является ли значение DBNull
+                            {
+                                ecologyValue = Convert.ToInt32(reader["ecology"]);
+                            }
+
+                            // Добавляем данные о городе в список
+                            cityDataEcology.Add((cityName, latitude, longitude, ecologyValue));
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return cityDataEcology;
+        }
     }
 }

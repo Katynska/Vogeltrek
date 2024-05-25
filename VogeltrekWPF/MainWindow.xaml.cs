@@ -107,6 +107,7 @@ namespace VogeltrekWPF
                 // Добавляем новую метку основного города на карту Gmap.NET
                 primaryCityMarker = GmapSheet.AddMarker(mapSurvey, latitude, longitude, selectedCity, isPrimaryCity: true);
                 Console.WriteLine("Выбранный город: " + selectedCity);
+
             }
         }
 
