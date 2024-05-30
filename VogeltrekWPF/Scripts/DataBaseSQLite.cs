@@ -101,9 +101,6 @@ namespace VogeltrekWPF.Scripts
         {
             List<CityRating> cityRatings = new List<CityRating>();
 
-            // Получаем значения критериев из selectedAnswersFull
-            int[] selectedCriteriaValues = selectedAnswersFull.ToArray();
-
             // Подключение к базе данных SQLite
             string connectionString = $"Data Source=|DataDirectory|\\Resources\\DBRussianCities.db;Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -135,11 +132,15 @@ namespace VogeltrekWPF.Scripts
                                 }
                             }
 
-                            // Вычисляем общий балл для города
+                            // Если selectedAnswersFull не равен null, вычисляем общий балл для города
                             int totalScore = 0;
-                            for (int i = 0; i < 7; i++)
+                            if (selectedAnswersFull != null)
                             {
-                                totalScore += Math.Abs(selectedCriteriaValues[i] - cityCriteriaValues[i]);
+                                int[] selectedCriteriaValues = selectedAnswersFull.ToArray();
+                                for (int i = 0; i < 7; i++)
+                                {
+                                    totalScore += Math.Abs(selectedCriteriaValues[i] - cityCriteriaValues[i]);
+                                }
                             }
 
                             // Добавляем город и его общий балл в список
@@ -149,6 +150,12 @@ namespace VogeltrekWPF.Scripts
                 }
 
                 connection.Close();
+            }
+
+            // Если selectedAnswersFull равен null, возвращаем список городов без сортировки
+            if (selectedAnswersFull == null)
+            {
+                return cityRatings.Select(cityRating => cityRating.CityName).ToList();
             }
 
             // Сортируем города по общему баллу
