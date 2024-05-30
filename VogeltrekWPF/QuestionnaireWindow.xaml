@@ -11,7 +11,7 @@
             <RadioButton Content="{Binding Text}" FontSize="14" GroupName="Answers" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
         </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Background="#FFCAFAFE">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="269*"/>
