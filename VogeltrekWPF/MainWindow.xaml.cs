@@ -1,20 +1,11 @@
 ﻿using GMap.NET.WindowsPresentation;
-using GMap.NET;
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VogeltrekWPF.Scripts;
 
 
@@ -69,12 +60,12 @@ namespace VogeltrekWPF
             {
                 // Выводим полученный список в консоль в одной строке
                 //Console.WriteLine("Список выбранных ответов в MainWindow: " + string.Join(", ", this.selectedAnswersFull));
-                
+
                 List<string> sortedCities = DataBaseSQLite.SortCitiesByRating(selectedAnswersFull);
 
                 // Обновляем список городов в listRatingCities
                 listRatingCities.ItemsSource = sortedCities;
-                
+
                 // Проверяем, выбран ли основной город
                 if (ComboBoxCityResidence.SelectedItem != null)
                 {
