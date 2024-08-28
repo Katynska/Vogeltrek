@@ -48,4 +48,4 @@
 ---
 В пункте «Справка» и дальше «О программе» открывается окно с информацией о приложение.
 
-![изображение](https://github.com/user-attachments/assets/c79c0953-5acd-4c0c-a8d8-0ef383fb5f4a)
+![362207184-c79c0953-5acd-4c0c-a8d8-0ef383fb5f4a](https://github.com/user-attachments/assets/4cc9c0a8-04a0-4e38-8e70-c240ecc7d448)
